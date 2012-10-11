@@ -84,7 +84,7 @@ public class MetaWatchStatus extends Activity {
     }
     
     static void displayStatus(Context context) {
-    	toggleButton.setChecked(Utils.isServiceRunning(context));
+    	setButtonState(context);
     	
     	Resources res = context.getResources();
     	textView.setText(res.getString(R.string.app_name_long));
@@ -185,12 +185,12 @@ public class MetaWatchStatus extends Activity {
 	void startService() {
 
 		Context context = getApplicationContext();
-		if(!Utils.isServiceRunning(context)) {
+		if(!MetaWatchService.isRunning()) {
 			context.bindService(new Intent(MetaWatchStatus.this, 
 					MetaWatchService.class), MetaWatch.mConnection, Context.BIND_AUTO_CREATE);
 		}
 		
-        toggleButton.setChecked(Utils.isServiceRunning(context));
+        setButtonState(context);
 
 	}
 	
@@ -206,6 +206,10 @@ public class MetaWatchStatus extends Activity {
         	if (Preferences.logging) Log.d(MetaWatch.TAG, e.getMessage());          	
         }
 
-        toggleButton.setChecked(Utils.isServiceRunning(context));
+        setButtonState(context);
     }
+
+	private static void setButtonState(Context context) {
+		toggleButton.setChecked(MetaWatchService.isRunning());
+	}
 }

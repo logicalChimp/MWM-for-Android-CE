@@ -48,6 +48,12 @@ public abstract class ContainerAction extends Action {
 		return getName();
 	}
 	
+	public String getHeaderText(Context context) {
+		// Implement this to display additional text at the top of the
+		// action container
+		return null;
+	}
+	
 	public String bulletIcon() {
 		return "bullet_plus.bmp"; //plus
 	}

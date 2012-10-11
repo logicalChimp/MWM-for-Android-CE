@@ -8,6 +8,7 @@ import java.util.Stack;
 import org.metawatch.manager.FontCache;
 import org.metawatch.manager.Idle;
 import org.metawatch.manager.MetaWatchService;
+import org.metawatch.manager.FontCache.FontSize;
 import org.metawatch.manager.MetaWatchService.Preferences;
 import org.metawatch.manager.MetaWatchService.QuickButton;
 import org.metawatch.manager.MetaWatchService.WatchType;
@@ -200,13 +201,21 @@ public class ActionsApp extends ApplicationBase {
 		Paint paintWhite = new Paint();
 		paintWhite.setColor(Color.WHITE);
 		
+		String headerText = getHeaderText(context);
+		StaticLayout headerLayout = null;
+		int headerHeight = 0;
+		if (headerText != null) {
+			headerLayout = Utils.buildText(context, headerText, 96, Layout.Alignment.ALIGN_NORMAL, Color.BLACK, FontSize.SMALL);			
+			headerHeight = headerLayout.getHeight();
+		}
+		
 		// Double the height to make room for multi line items that trigger scrolling.
 		Bitmap bitmap = Bitmap.createBitmap(96, 192, Bitmap.Config.RGB_565);
 		Canvas canvas = new Canvas(bitmap);
 		canvas.drawColor(Color.WHITE);
 		
-		final int maxY = 96 - textHeight;
-		int y = textHeight + 5; //Make room for a title.
+		final int maxY = 96 - textHeight - headerHeight;
+		int y = textHeight + headerHeight +  5; //Make room for a title.
 
 		boolean scrolled = false;
 		for (int i = Math.max(0, currentSelection - 96/textHeight + 4);
@@ -275,14 +284,25 @@ public class ActionsApp extends ApplicationBase {
 			}
 		}
 		
-		// Draw title.
+		// Draw title and header
 		if (scrolled) {
 			// Paint white over any scrolled items.
-			canvas.drawRect(0, 0, 95, textHeight+4, paintWhite);
+			canvas.drawRect(0, 0, 95, textHeight+4+headerHeight, paintWhite);
 		}
 		String title = getUiTitle();
 		canvas.drawText((String) TextUtils.ellipsize(title, paint, 84, TruncateAt.END), 2, textHeight+1, paint);
-		canvas.drawLine(1, textHeight+2, (isToggleable() ? 79 : 87), textHeight+2, paint);
+		
+		if (headerLayout!=null) {
+			canvas.save();		
+			canvas.translate(0, textHeight+2);
+			headerLayout.draw(canvas);
+			canvas.restore();	
+			
+			canvas.drawLine(1, textHeight+headerHeight+2, 94, textHeight+headerHeight+2, paint);
+		}
+		else {
+			canvas.drawLine(1, textHeight+headerHeight+2, (isToggleable() ? 79 : 87), textHeight+headerHeight+2, paint);			
+		}
 		
 		// Draw icons.
 		drawDigitalAppSwitchIcon(context, canvas, preview);
@@ -307,6 +327,10 @@ public class ActionsApp extends ApplicationBase {
 
 	private String getUiTitle() {
 		return (containerStack==null || containerStack.isEmpty() || containerStack.peek()==null) ? "Actions" : containerStack.peek().getTitle();
+	}
+
+	private String getHeaderText(Context context) {
+		return (containerStack==null || containerStack.isEmpty() || containerStack.peek()==null) ? null : containerStack.peek().getHeaderText(context);
 	}
 	
 	private Bitmap drawAnalog(final Context context, boolean preview) {

@@ -29,6 +29,9 @@ public class TestWidget implements InternalWidget {
 	public final static String id_3 = "Test_96_96";
 	final static String desc_3 = "Test (96x96)";
 	
+	public final static String id_4 = "Test_46_46";
+	final static String desc_4 = "Test (46x46)";
+	
 	//private Context context;
 	private TextPaint paintSmall;
 	private TextPaint paintLarge;
@@ -108,6 +111,20 @@ public class TestWidget implements InternalWidget {
 			widget.description = desc_3;
 			widget.width = 96;
 			widget.height = 96;
+			
+			widget.bitmap = draw(widget.width, widget.height);
+			widget.priority = 1;
+			
+			result.put(widget.id, widget);
+		}
+		
+		if(widgetIds == null || widgetIds.contains(id_4)) {
+			InternalWidget.WidgetData widget = new InternalWidget.WidgetData();
+			
+			widget.id = id_4;
+			widget.description = desc_4;
+			widget.width = 46;
+			widget.height = 46;
 			
 			widget.bitmap = draw(widget.width, widget.height);
 			widget.priority = 1;

@@ -95,14 +95,14 @@ public class WidgetRow {
 		if (widgets==null)
 			return;
 		
-		final int space = (screenWidth()-totalWidth)/(widgets.size()+1);		
-		int x=space;
+		final float space = (float)(screenWidth()-totalWidth)/(float)(2*(widgets.size()));		
+		float x=space;
 		for(WidgetData widget : widgets) {
 			int yAdd = 0;
 			if(widget.height<totalHeight)
 				yAdd = (totalHeight/2)-(widget.height/2);
-			canvas.drawBitmap(widget.bitmap, x, y+yAdd, null);
-			x += (space+widget.width);
+			canvas.drawBitmap(widget.bitmap, (int)x, y+yAdd, null);
+			x += ((space*2)+widget.width);
 		}	
 	}
 }

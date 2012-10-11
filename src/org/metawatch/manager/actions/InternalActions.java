@@ -4,6 +4,7 @@ import org.metawatch.manager.Call;
 import org.metawatch.manager.MediaControl;
 import org.metawatch.manager.MetaWatchService;
 import org.metawatch.manager.Monitors;
+import org.metawatch.manager.Utils;
 import org.metawatch.manager.apps.ApplicationBase;
 
 import android.content.ActivityNotFoundException;
@@ -371,6 +372,19 @@ public class InternalActions {
 		
 		public boolean isHidden() {
 			return !Call.inCall;
+		}
+		
+		public String getHeaderText(Context context) {
+			StringBuilder sb = new StringBuilder();
+			if (Call.phoneNumber!=null) {
+				String name = Utils.getContactNameFromNumber(context, Call.phoneNumber);
+				if( !name.equals(Call.phoneNumber) ) {
+					sb.append(name);
+					sb.append(" ");				
+				}
+				sb.append(Call.phoneNumber);
+			}
+			return sb.toString();
 		}
 	}
 }

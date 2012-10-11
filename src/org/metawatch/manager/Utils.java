@@ -63,11 +63,8 @@ import org.xml.sax.SAXException;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -109,16 +106,6 @@ public class Utils {
 	static public String Meeting_Location = "---";
 	static public long Meeting_EndTimestamp;
 	static public long Meeting_StartTimestamp;
-	
-    public static boolean isServiceRunning(Context context) {
-        ActivityManager manager = (ActivityManager) context.getSystemService(Activity.ACTIVITY_SERVICE);
-        for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if ("org.metawatch.manager.MetaWatchService".equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 	
 	public static class CursorHandler {
 		private List<Cursor> cursors = new ArrayList<Cursor>();
@@ -746,6 +733,10 @@ public class Utils {
 			canvas.drawBitmap(icon, 0, 3, null);
 			canvas.drawText(text, 12, 30, textPaint);
 		}
+		else if(height==46) {
+			canvas.drawBitmap(icon, 11, 6, null);
+			canvas.drawText(text, 24, 40, textPaint);
+		}
 		
 		return bitmap;
 	}
@@ -967,7 +958,7 @@ public class Utils {
     	return builder.toString();
     }
     
-    private static StaticLayout buildText(Context context, String text, int width, Layout.Alignment alignment, int textCol,  FontSize size ) {
+    public static StaticLayout buildText(Context context, String text, int width, Layout.Alignment alignment, int textCol,  FontSize size ) {
 		TextPaint tp = new TextPaint();
 		tp.setColor(textCol);
 		FontInfo info = FontCache.instance(context).Get(size);

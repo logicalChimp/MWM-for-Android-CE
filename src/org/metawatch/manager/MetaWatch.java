@@ -140,7 +140,7 @@ public class MetaWatch extends TabActivity {
     	
     	context = getApplicationContext();
 		context.bindService(new Intent(MetaWatch.this, 
-				MetaWatchService.class), mConnection, Context.BIND_AUTO_CREATE);
+				MetaWatchService.class), mConnection, 0);
     	
     	MetaWatchStatus.displayStatus(this);
     }
@@ -173,6 +173,7 @@ public class MetaWatch extends TabActivity {
 	}
         
     void exit() {
+    	stopService(new Intent(this, MetaWatchService.class));
     	MetaWatchService.setPreviousConnectionState(context, false);
     	System.exit(0);
     }
