@@ -148,8 +148,8 @@ public class Idle {
 					totalHeight += row.getHeight();
 				}
 							
-				int space = (watchType == WatchType.DIGITAL) ? (((showClock ? 32:96) - totalHeight) / (rows.size()+1)) : 0;
-				int yPos = (watchType == WatchType.DIGITAL) ? (showClock ? 64:0) + space : 0;
+				final float space = (watchType == WatchType.DIGITAL) ? (float)(((showClock ? 32:96) - totalHeight) / (float)(2*rows.size())) : 0;
+				float yPos = (watchType == WatchType.DIGITAL) ? (showClock ? 63:0) + space : 0;
 				
 				for(WidgetRow row : rows) {
 					row.draw(widgetData, canvas, (int)yPos);
@@ -159,8 +159,8 @@ public class Idle {
 				if (watchType == WatchType.DIGITAL && Preferences.displayWidgetRowSeparator) {
 					yPos = space/2; // Center the separators between rows.
 					if (showClock) {
-						yPos += 64;
-						drawLine(canvas, yPos);
+						yPos += 63;
+						drawLine(canvas, (int)yPos);
 					}
 					int i = 0;
 					for(WidgetRow row : rows) {
