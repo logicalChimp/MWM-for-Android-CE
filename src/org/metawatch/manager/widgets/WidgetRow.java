@@ -101,16 +101,11 @@ public class WidgetRow {
 			int yAdd = 0;
 			if(widget.height<totalHeight)
 				yAdd = (totalHeight/2)-(widget.height/2);
-<<<<<<< HEAD
-			canvas.drawBitmap(widget.bitmap, (int)x, y+yAdd, null);
-			x += ((space*2)+widget.width);
-=======
 
 			if ( !(Preferences.hideEmptyWidgets && Preferences.hiddenWidgetsReserveSpace && (widget.priority < 1))) 
-				canvas.drawBitmap(widget.bitmap, x, y+yAdd, null);
-			
-			x += (space+widget.width);
->>>>>>> HiddenWidgetsReserveSpace
+				canvas.drawBitmap(widget.bitmap, (int)x, y+yAdd, null);
+
+			x += ((space*2)+widget.width);
 		}	
 	}
 }
