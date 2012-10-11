@@ -359,6 +359,13 @@
 			android:defaultValue="true"
 			/>
 
+	    <CheckBoxPreference
+			android:title="@string/settings_Align_widget_row_to_bottom"
+			android:key="AlignWidgetRowToBottom"
+			android:summary="@string/settings_Align_widget_row_to_bottom_desc"
+			android:defaultValue="false"
+			/>
+
 	    		<CheckBoxPreference
 			android:title="@string/settings_clock_every_page"
 			android:key="ClockOnEveryPage"
