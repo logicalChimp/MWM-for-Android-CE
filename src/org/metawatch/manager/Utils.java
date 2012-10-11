@@ -745,7 +745,7 @@ public class Utils {
 			else return new Point(12,12);
 		} else if (rowHeight == 46) {
 			if (Preferences.displayWidgetIconOnTop) return new Point(24,40);
-			else return new Point(24,12);
+			else return new Point(24,18);
 		} else {
 			return new Point(0,rowHeight); //text is drawn bottom-up
 		}

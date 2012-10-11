@@ -239,13 +239,13 @@ public class CalendarWidget implements InternalWidget {
 			}
 		}
 		else if (widget.height == 46 && icon != null){
-			canvas.drawBitmap(icon, 11, 6, null);
+			canvas.drawBitmap(icon, 11, iconOffset.y, null);
 		
 			if ((Preferences.displayLocationInSmallCalendarWidget)&&
 					(!meetingTime.equals("None"))&&(meetingLocation!=null)&&
 					(!meetingLocation.equals("---"))&&(widget_id.equals(id_0))&&
 					(meetingLocation.length()>0)&&(meetingLocation.length()<=3)) {
-				canvas.drawText(meetingLocation, 23, 18, paintSmall);        
+				canvas.drawText(meetingLocation, 23, (iconOffset.y+13), paintSmall);        
 			}
 			else 
 			{
@@ -256,15 +256,15 @@ public class CalendarWidget implements InternalWidget {
 				}
 				int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
 				if(dayOfMonth<10) {
-					canvas.drawText(""+dayOfMonth, 23, 19, paintNumerals);
+					canvas.drawText(""+dayOfMonth, 23, (iconOffset.y+13), paintNumerals);
 				}
 				else
 				{
-					canvas.drawText(""+dayOfMonth/10, 20, 19, paintNumerals);
-					canvas.drawText(""+dayOfMonth%10, 26, 19, paintNumerals);
+					canvas.drawText(""+dayOfMonth/10, 20, (iconOffset.y+13), paintNumerals);
+					canvas.drawText(""+dayOfMonth%10, 26, (iconOffset.y+13), paintNumerals);
 				}
 			}
-			canvas.drawText(meetingTime, 24, 40, paintLarge);
+			canvas.drawText(meetingTime, 24, textOffset.y, paintLarge);
 		}
 		else if (icon!=null){
 			canvas.drawBitmap(icon, 0, iconOffset.y, null);
