@@ -365,7 +365,7 @@ public class Idle {
 		
 			int screenSize = 0;
 			if (MetaWatchService.watchType == MetaWatchService.WatchType.DIGITAL) {
-				screenSize = 64; // Initial screen has top part used by the fw clock
+				screenSize = 32; // Initial screen has top part used by the fw clock
 			}
 			
 			ArrayList<WidgetRow> screenRow = new ArrayList<WidgetRow>();
@@ -375,7 +375,7 @@ public class Idle {
 					screenRow = new ArrayList<WidgetRow>();
 					if (MetaWatchService.watchType == MetaWatchService.WatchType.DIGITAL &&
 							Preferences.clockOnEveryPage) {
-						screenSize = 64;
+						screenSize = 32;
 					} else { 
 						screenSize = 0;
 					}
