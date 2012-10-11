@@ -14,6 +14,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Paint.Align;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -215,21 +216,24 @@ public class CalendarWidget implements InternalWidget {
 		Canvas canvas = new Canvas(widget.bitmap);
 		canvas.drawColor(Color.WHITE);
 
+		Point iconOffset = Utils.getIconOffset(widget.height);
+		Point textOffset = Utils.getTextOffset(widget.height);
+		
 		if (widget.height == 16 && icon != null) {
-			if (icon != null)
-				canvas.drawBitmap(icon, widget.width == 16 ? 2 : 0, 0, null);
+			canvas.drawBitmap(icon, widget.width == 16 ? 2 : 0, iconOffset.y, null);
+
 			if(meetingTime.equals("None"))
-				canvas.drawText("-", widget.width == 16 ? 8 : 6, 15, paintSmallNumerals);
+				canvas.drawText("-", widget.width == 16 ? 8 : 6, textOffset.y, paintSmallNumerals);
 			else {
 				// Strip out colon to make it fit;
 				String time = meetingTime.replace(":", "");
 
 				if (widget.width==16) {
-					canvas.drawText(time, 8, 15, paintSmallNumerals);
+					canvas.drawText(time, 8, textOffset.y, paintSmallNumerals);
 				}
 				else {
 					paintSmallNumerals.setTextAlign(Align.LEFT);
-					canvas.drawText(time, 0, 15, paintSmallNumerals);
+					canvas.drawText(time, 0, textOffset.y, paintSmallNumerals);
 					paintSmallNumerals.setTextAlign(Align.CENTER);
 				}
 			}
@@ -262,14 +266,14 @@ public class CalendarWidget implements InternalWidget {
 			}
 			canvas.drawText(meetingTime, 24, 40, paintLarge);
 		}
-		else if (icon!=null) {
-			canvas.drawBitmap(icon, 0, 3, null);
+		else if (icon!=null){
+			canvas.drawBitmap(icon, 0, iconOffset.y, null);
 
 			if ((Preferences.displayLocationInSmallCalendarWidget)&&
 					(!meetingTime.equals("None"))&&(meetingLocation!=null)&&
 					(!meetingLocation.equals("---"))&&(widget_id.equals(id_0))&&
 					(meetingLocation.length()>0)&&(meetingLocation.length()<=3)) {
-				canvas.drawText(meetingLocation, 12, 15, paintSmall);        
+				canvas.drawText(meetingLocation, 12, (iconOffset.y+13), paintSmall);        
 			}
 			else 
 			{
@@ -280,15 +284,15 @@ public class CalendarWidget implements InternalWidget {
 				}
 				int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
 				if(dayOfMonth<10) {
-					canvas.drawText(""+dayOfMonth, 12, 16, paintNumerals);
+					canvas.drawText(""+dayOfMonth, 12, (iconOffset.y+13), paintNumerals);
 				}
 				else
 				{
-					canvas.drawText(""+dayOfMonth/10, 9, 16, paintNumerals);
-					canvas.drawText(""+dayOfMonth%10, 15, 16, paintNumerals);
+					canvas.drawText(""+dayOfMonth/10, 9, (iconOffset.y+13), paintNumerals);
+					canvas.drawText(""+dayOfMonth%10, 15, (iconOffset.y+13), paintNumerals);
 				}
 			}
-			canvas.drawText(meetingTime, 12, 30, paintSmall);
+			canvas.drawText(meetingTime, 12, textOffset.y, paintSmall);
 		}
 
 		String text = "";
