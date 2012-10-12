@@ -739,7 +739,7 @@ public class Utils {
 	public static Point getTextOffset(int rowHeight) {
 		if (rowHeight == 16) {
 			if (Preferences.displayWidgetIconOnTop) return new Point(8,15);
-			else return new Point(8,0);
+			else return new Point(8,5);
 		} else if (rowHeight == 32) {
 			if (Preferences.displayWidgetIconOnTop) return new Point(12,30);
 			else return new Point(12,12);
