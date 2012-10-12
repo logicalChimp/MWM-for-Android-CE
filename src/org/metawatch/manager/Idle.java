@@ -150,7 +150,7 @@ public class Idle {
 							
 				float padding = 0;
 				float yPos = 0;
-				if (Preferences.alignWidgetRowToBottom) {
+				if (watchType == WatchType.DIGITAL && Preferences.alignWidgetRowToBottom) {
 					padding = 0;
 					yPos = (96 - totalHeight);
 				} else {
