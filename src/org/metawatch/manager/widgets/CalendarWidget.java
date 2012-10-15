@@ -1,8 +1,10 @@
 package org.metawatch.manager.widgets;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.metawatch.manager.FontCache;
@@ -48,6 +50,9 @@ public class CalendarWidget implements InternalWidget {
 	
 	public final static String id_6 = "Calendar_46_46";
 	final static String desc_6 = "Next Calendar Appointment (46x46)";
+	
+	public final static String id_7 = "Calendar_day_24x32";
+	final static String desc_7 = "Calendar Day (24x32)";
 	
 	private Context context;
 	private TextPaint paintLarge;
@@ -176,6 +181,10 @@ public class CalendarWidget implements InternalWidget {
 			result.put(id_6, GenWidget(id_6));
 		}
 	
+		if(widgetIds == null || widgetIds.contains(id_7)) {		
+			result.put(id_7, GenWidget(id_7));
+		}
+
 	}
 
 	private InternalWidget.WidgetData GenWidget(String widget_id) {
@@ -229,6 +238,12 @@ public class CalendarWidget implements InternalWidget {
 			widget.description = desc_6;
 			widget.width = 46;
 			widget.height = 46;
+		}
+		if (widget_id.equals(id_7)) {
+			widget.id = id_7;
+			widget.description = desc_7;
+			widget.width = 24;
+			widget.height = 32;
 		}
 
 		Bitmap icon = iconFile == null ? null : Utils.getBitmap(context, iconFile);
@@ -288,6 +303,24 @@ public class CalendarWidget implements InternalWidget {
 				}
 			}
 			canvas.drawText(meetingTime, 24, textOffset.y, paintLarge);
+		}
+		else if (widget.id == id_7) {
+			canvas.drawBitmap(icon, 0, iconOffset.y, null);
+
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(new Date());
+			int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+			if(dayOfMonth<10) {
+				canvas.drawText(""+dayOfMonth, 12, (iconOffset.y+13), paintNumerals);
+			}
+			else
+			{
+				canvas.drawText(""+dayOfMonth/10, 9, (iconOffset.y+13), paintNumerals);
+				canvas.drawText(""+dayOfMonth%10, 15, (iconOffset.y+13), paintNumerals);
+			}
+
+			String dayName = c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault());
+			canvas.drawText(dayName, 12, textOffset.y, paintSmall);
 		}
 		else if (icon!=null){
 			canvas.drawBitmap(icon, 0, iconOffset.y, null);
