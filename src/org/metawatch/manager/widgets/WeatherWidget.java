@@ -18,6 +18,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.text.Layout;
+import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
@@ -461,10 +462,11 @@ public class WeatherWidget implements InternalWidget {
 			int moonPhase = Monitors.weatherData.ageOfMoon;
 			int moonImage = phaseImage[moonPhase];
 			int x = 0-(moonImage*24);
+			int y = (Preferences.displayWidgetIconOnTop) ? 0 : 8;
 			Bitmap image = shouldInvert ? Utils.getBitmap(context, "moon-inv.bmp") : Utils.getBitmap(context, "moon.bmp");
-			canvas.drawBitmap(image, x, 0, null);
+			canvas.drawBitmap(image, x, y, null);
 			
-			canvas.drawText(Integer.toString(Monitors.weatherData.moonPercentIlluminated)+"%", 12, 30, paintSmall);
+			canvas.drawText(Integer.toString(Monitors.weatherData.moonPercentIlluminated)+"%", 12, (Preferences.displayWidgetIconOnTop) ? 30 : 6, paintSmall);
 		} else {
 			canvas.drawText("Wait", 12, 16, paintSmall);
 		}
@@ -755,23 +757,23 @@ public class WeatherWidget implements InternalWidget {
 			// icon
 			Bitmap image = Utils.getBitmap(context, Monitors.weatherData.icon);
 			
-			canvas.drawBitmap(image, 0, 10, null);
+			canvas.drawBitmap(image, 0, 7, null);
 			
 			// temperatures
 			paintLarge.setTextAlign(Paint.Align.RIGHT);
 			paintLargeOutline.setTextAlign(Paint.Align.RIGHT);
-			Utils.drawOutlinedText(Monitors.weatherData.temp, canvas, 43, 13, paintLarge, paintLargeOutline);
+			Utils.drawOutlinedText(Monitors.weatherData.temp, canvas, 43, 11, paintLarge, paintLargeOutline);
 			if (Monitors.weatherData.celsius) {
-				canvas.drawText("C", 43, 7, paintSmall);
+				canvas.drawText("C", 43, 5, paintSmall);
 			}
 			else {
-				canvas.drawText("F", 43, 7, paintSmall);
+				canvas.drawText("F", 43, 5, paintSmall);
 			}
 			paintLarge.setTextAlign(Paint.Align.LEFT);
 						
 			if (Monitors.weatherData.forecast!=null && Monitors.weatherData.forecast.length>0) {				
 				paintSmall.setTextAlign(Paint.Align.RIGHT);
-				canvas.drawText(Monitors.weatherData.forecast[0].getTempHigh(), 47, 21, paintSmall);
+				canvas.drawText(Monitors.weatherData.forecast[0].getTempHigh(), 47, 19, paintSmall);
 				canvas.drawText(Monitors.weatherData.forecast[0].getTempLow(), 47, 27, paintSmall);
 				paintSmall.setTextAlign(Paint.Align.LEFT);
 			}
@@ -781,7 +783,16 @@ public class WeatherWidget implements InternalWidget {
 			sb.append(" ");
 			sb.append(Monitors.weatherData.condition);
 			
-			Utils.drawWrappedOutlinedText(sb.toString(), canvas, 0, 32, 46, paintSmall, paintSmallOutline, Layout.Alignment.ALIGN_NORMAL );
+			canvas.save();
+			StaticLayout layout = new StaticLayout(sb.toString(), paintSmall, 46, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0, false);
+			
+			int h = layout.getHeight();
+			if( h>17 )
+				h=17;
+			
+			canvas.translate(0, 46-h); //position the text
+			layout.draw(canvas);
+			canvas.restore();	
 						
 		} else {
 			paintSmall.setTextAlign(Paint.Align.CENTER);

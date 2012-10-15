@@ -582,9 +582,9 @@ public class Protocol {
 		enqueue(bytes);
 	}
 
-	public static void configureIdleBufferSize(boolean showClock) {
+	public static void configureIdleBufferSize(boolean showClock, boolean force) {
 		
-		if(idleShowClock !=showClock) {
+		if(idleShowClock !=showClock || force) {
 			if (Preferences.logging) Log.d(MetaWatch.TAG, "Protocol.configureIdleBufferSize("+showClock+")");
 			
 			idleShowClock = showClock;

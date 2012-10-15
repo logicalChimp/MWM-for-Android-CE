@@ -134,6 +134,8 @@ public class WidgetPicker extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        setTitle(getResources().getString(R.string.widget_picker_title));
             
         Map<String,WidgetData> widgetMap = WidgetManager.refreshWidgets(this, null);
         widgetList = new ArrayList<WidgetData>();

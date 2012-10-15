@@ -226,9 +226,11 @@ public class MetaWatchService extends Service {
 		public static boolean showActionsInCall = true;
 		public static String themeName = "";
 		public static boolean hideEmptyWidgets = false;
+		public static boolean clockOnAppScreens = false;
 		public static boolean hiddenWidgetsReserveSpace = false;
-		public static boolean displayWidgetIconOnTop = true;
+		public static boolean showTestWidgets = false;
 		public static boolean alignWidgetRowToBottom = false;
+		public static boolean displayWidgetIconOnTop = true;
 	}
 
 	public final class WatchType {
@@ -259,7 +261,7 @@ public class MetaWatchService extends Service {
 				Idle.reset(context);
 			}	
 			
-			if (key.contains("Widgets") || (key.equals("SilentMode"))) {
+			if (key.contains("Widget") || (key.equals("SilentMode")) || key.equals("ClockOnAppBuffers")) {
 				Idle.updateIdle(context, true);
 			}
 			
@@ -368,12 +370,17 @@ public class MetaWatchService extends Service {
 				Preferences.themeName);
 		Preferences.hideEmptyWidgets = sharedPreferences.getBoolean("HideEmptyWidgets",
 				Preferences.hideEmptyWidgets);
+		Preferences.clockOnAppScreens = sharedPreferences.getBoolean("ClockOnAppBuffers",
+				Preferences.clockOnAppScreens);
+		Preferences.showTestWidgets = sharedPreferences.getBoolean("TestWidgets", 
+				Preferences.showTestWidgets);
 		Preferences.hiddenWidgetsReserveSpace = sharedPreferences.getBoolean("HiddenWidgetsReserveSpace",
 				Preferences.hiddenWidgetsReserveSpace);
-		Preferences.displayWidgetIconOnTop = sharedPreferences.getBoolean("DisplayWidgetIconOnTop", 
-				Preferences.displayWidgetIconOnTop);
 		Preferences.alignWidgetRowToBottom = sharedPreferences.getBoolean("AlignWidgetRowToBottom",
 				Preferences.alignWidgetRowToBottom);
+		Preferences.displayWidgetIconOnTop = sharedPreferences.getBoolean("DisplayWidgetIconOnTop", 
+				Preferences.displayWidgetIconOnTop);
+
 		
 		boolean silent = sharedPreferences.getBoolean("SilentMode", silentMode );
 		if (silent!=silentMode)
@@ -644,25 +651,27 @@ public class MetaWatchService extends Service {
 				BluetoothDevice bluetoothDevice = bluetoothAdapter
 						.getRemoteDevice(Preferences.watchMacAddress);
 			
+				int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+				
 				if (Preferences.skipSDP) {
-					Method method = bluetoothDevice.getClass().getMethod(
-							"createRfcommSocket", new Class[] { int.class });
-					bluetoothSocket = (BluetoothSocket) method.invoke(
-							bluetoothDevice, 1);
+				    Method method;
+				    if (Preferences.insecureBtSocket && currentapiVersion >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+				    	method = bluetoothDevice.getClass().getMethod("createInsecureRfcommSocket", new Class[] { int.class });
+				    } else {
+				    	method = bluetoothDevice.getClass().getMethod("createRfcommSocket", new Class[] { int.class });
+				    }
+				    bluetoothSocket = (BluetoothSocket) method.invoke(bluetoothDevice, 1);
 				} else {
 					UUID uuid = UUID
 							.fromString("00001101-0000-1000-8000-00805F9B34FB");
-					
-					int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-					
+										
 					if (Preferences.insecureBtSocket && currentapiVersion >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
 						bluetoothSocket = bluetoothDevice
 								.createInsecureRfcommSocketToServiceRecord(uuid);
 					} else {
 						bluetoothSocket = bluetoothDevice
 								.createRfcommSocketToServiceRecord(uuid);
-					}
-					
+					}				
 				}
 
 				bluetoothAdapter.cancelDiscovery();
@@ -686,6 +695,7 @@ public class MetaWatchService extends Service {
 			
 			Protocol.getRealTimeClock();
 			Protocol.getDeviceType();
+			Protocol.configureIdleBufferSize(true, true);
 
 			Notification.startNotificationSender(this);
 			

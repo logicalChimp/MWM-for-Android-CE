@@ -85,8 +85,7 @@ public class Monitors {
 	
 	private static BroadcastReceiver batteryLevelReceiver;
 	
-	public static boolean calendarChanged = false;
-	
+	public static long calendarChangedTimestamp = 0;
 	public static long getRTCTimestamp = 0;
 	public static int rtcOffset = 0; // Offset in seconds to add to the RTC to allow for latency
 
@@ -342,9 +341,8 @@ public class Monitors {
 			super.onChange(selfChange);     
 			// change in calendar database
 			if (Preferences.logging) Log.d(MetaWatch.TAG, "calendar change");
-				calendarChanged = true;
+				calendarChangedTimestamp = System.currentTimeMillis();
 				Idle.updateIdle(context, true);
-				calendarChanged = false;
 			}
 		}
 

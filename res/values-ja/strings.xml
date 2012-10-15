@@ -75,9 +75,13 @@
 
     <string name="settings_Display_widget_row_separator">区切り線を表示</string>
     <string name="settings_Display_widget_row_separator_desc">ウィジェットの行間に区切り線を描画</string>
-
-    <string name="settings_Overlay_weather_text">お天気ウィジェットに文字を上書き</string>
-    <string name="settings_Overlay_weather_text_desc">お天気アイコンの上にテキスト(天気、場所)を書く</string>
+    <string name="settings_Align_widget_row_to_bottom">ウィジェット下寄せ</string>
+    <string name="settings_Align_widget_row_to_bottom_desc">ウィジェットの位置を画面の下に寄せる</string>
+    <string name="settings_Display_widget_icon_on_top">アイコンを上段に表示</string>
+    <string name="settings_Display_widget_icon_on_top_desc">アイコンを上段に表示。下段に表示着信件数や時刻などの数値を表示</string>
+    
+    <string name="settings_Overlay_weather_text">ウィジェットに文字上書き</string>
+    <string name="settings_Overlay_weather_text_desc">天気アイコンの上にテキスト(天気、場所)を上書く</string>
 
     <string name="settings_phoneCalls">通話設定</string>
         
@@ -107,6 +111,10 @@
     <string name="settings_idle_app_buffer">時刻非表示ウィジェット画面でMetaWatchアプリバッファを使う</string>
     <string name="settings_idle_app_buffer_desc">Bluetooth接続が切れて内蔵ボタン動作が使えなくなる画面の時、時刻と状態アイコンを表示</string>    
         
+    <string name="settings_apps_show_clock">アプリ画面に時計表示</string>
+    <string name="settings_apps_show_clock_desc">MetaWatchアプリ画面のページ切り替えウィジェットの代わりに小さい時計を表示。</string>    
+    
+    
     <string-array name="settings_font_size_name"> 
    	<item>フォント小</item>
    	<item>フォント中</item>
@@ -184,7 +192,7 @@
 	
     <string-array name="settings_geolocation_names">
 	<item>手入力した場所を使う</item>
-    <item>お天気情報サイト</item>
+    <item>天気情報サイト</item>
     <item>常にGoogleを使う</item>
     </string-array>
     
@@ -233,23 +241,25 @@
     <string name="settings_reset_widgets">ウィジェット初期化</string>
     <string name="settings_reset_widgets_desc">ウィジェットをデフォルトレイアウトに初期化</string>
     
-    <string name="settings_hide_empty_widgets">空白のウィジェットを隠す</string>
-    <string name="settings_hide_empty_widgets_desc">件数0やデータのないウィジェットを隠す</string>
+    <string name="settings_hide_empty_widgets">隠しウィジェット</string>
+    <string name="settings_hide_empty_widgets_desc">件数0やデータのないウィジェットを表示しないで隠す</string>
+    <string name="settings_hidden_widgets_reserve_space">隠しウィジェット表示スペース</string>
+    <string name="settings_hidden_widgets_reserve_space_desc">隠しウィジェットの表示スペースを詰めずに空けておく。</string>
     
-    <string name="settings_weather_provider">お天気情報サイト</string>
-    <string name="settings_weather_provider_desc">お天気情報の取得先の選択、もしくは無効化</string>
+    <string name="settings_weather_provider">天気情報サイト</string>
+    <string name="settings_weather_provider_desc">天気情報の取得先の選択、もしくは無効化</string>
     
-    <string name="settings_weather_geolocation">お天気位置情報モード</string>
+    <string name="settings_weather_geolocation">天気場所の取得方法</string>
     <string name="settings_weather_geolocation_desc">位置情報の取得方法</string>
     
-    <string name="settings_weather_location">お天気の場所</string>
-    <string name="settings_weather_location_desc">お天気位置情報手動設定時のデフォルト都市</string>
+    <string name="settings_weather_location">天気の場所</string>
+    <string name="settings_weather_location_desc">天気場所の取得方法を「手入力した場所を使う」とした時に入力</string>
     
     <string name="settings_weather_celsius">摂氏(℃)表示</string>
     <string name="settings_weather_celsius_desc">華氏(°F)の替わりに摂氏(℃)で表示</string>
     
     <string name="settings_wunderground_key">APIキー</string>
-    <string name="settings_wunderground_key_desc">Weather UndergroundのAPIキー - Weather Undergroundをお天気情報サイトとした時に必要</string>
+    <string name="settings_wunderground_key_desc">Weather UndergroundのAPIキー - Weather Undergroundを天気情報サイトとした時に必要</string>
     
     <string name="settings_app_launch_mode">MetaWatchアプリ起動モード</string>
     
@@ -292,7 +302,7 @@
     <string name="settings_watch_voltage_freq">取得間隔</string>
     
     <string name="settings_auto_connect">開始時に自動接続</string>
-    <string name="settings_auto_connect_desc">MWMアプリ起動時にBluetooth接続を自動で試みます。</string>
+    <string name="settings_auto_connect_desc">起動時、前回の接続状態に戻す</string>
     
     <string name="settings_notify_on_connect">接続完了をMetaWatchに通知</string>
     <string name="settings_notify_on_connect_desc">Bluetooth接続完了時にMetaWatchに接続完了通知を送る</string>
@@ -312,6 +322,9 @@
     <string name="settings_screenshots">MetaWatchスクリーンショット取得</string>
     <string name="settings_screenshots_desc">MetaWatch画面のスクリーンショット取得しSDカードに保存する。警告-この機能はスローダウンをもたらし、SDカードをいっぱいにする-本当に必要なテーマのスクリーンショット取得にだけ使うこと。</string>
     
+    <string name="settings_test_widgets">テストウィジェット表示</string>
+    <string name="settings_test_widgets_desc">テストウィジェットのレイアウトを表示(要再起動)</string>
+    
     <string name="settings_backup">設定の保存</string>
     <string name="settings_backup_backup">バックアップ</string>
     <string name="settings_backup_backup_desc">外部ストレージ(SD Cardなど)に設定を保存</string>
@@ -322,7 +335,7 @@
     <string name="settings_auto_clock_format_desc">Bluetooth接続時に時刻フォーマットを自動的にセットする。警告 - ファームウェアが０．９版以前のMetaWatchはクラッシュする。</string>
     
     <string name="settings_silent_mode">サイレントモード</string>
-    <string name="settings_silent_mode_desc">通知振動や画面更新をしない。アイドル画面切り替えボタン(右上ボタン)長押しで切り替わる。</string>
+    <string name="settings_silent_mode_desc">通知振動や画面更新をしない。アイドル画面切り替えボタン(MetaWatchの右上ボタン)の長押しでモードを変更することができます。</string>
     
     <string name="main_service_toggle_on">実行中。クリックで停止。</string>
     <string name="main_service_toggle_off">停止中。クリックで開始。</string>
@@ -333,8 +346,8 @@
   	<string name="ui_tab_widgets">ウィジェット</string>
   	<string name="ui_tab_tests">テスト</string>
   	
-  	<string name="ui_tab_downloaded_themes">Downloaded</string>
-  	<string name="ui_tab_theme_gallery">Gallery</string>
+  	<string name="ui_tab_downloaded_themes">ダウンロード完了</string>
+  	<string name="ui_tab_theme_gallery">ギャラリー</string>
   	  
     
     <string name="device_selection_search_button">デバイスの検出</string>
@@ -360,10 +373,10 @@
     
 	<string name="status_loading">...読み込み中...</string>
 	
-	<string name="status_weather_last_updated">お天気更新時刻：</string>
+	<string name="status_weather_last_updated">天気更新時刻：</string>
 	<string name="status_weather_forecast">天気予報</string>
 	<string name="status_weather_observation">現在の天気：</string>
-	<string name="status_weather_waiting">お天気情報待ち</string>
+	<string name="status_weather_waiting">天気情報待ち</string>
 	<string name="status_location_updated">位置情報更新時刻：</string>
 	<string name="status_location_waiting">位置情報待ち</string>
 	
@@ -374,5 +387,7 @@
 	
 	<string name="status_message_queue">メッセージ待ちの数：</string>
 	<string name="status_notification_queue">通知待ちの数：</string>
+	
+	<string name="widget_picker_title">ウィジェット選択</string>
 	
 </resources>

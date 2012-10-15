@@ -111,6 +111,10 @@
     <string name="settings_idle_app_buffer">Use App Buffer for Clock-less Widget Pages</string>
     <string name="settings_idle_app_buffer_desc">Makes the clock and status icon visible when the watch connection is lost, but loses built-in button actions on affected pages.</string>    
         
+    <string name="settings_apps_show_clock">Clock on App screens</string>
+    <string name="settings_apps_show_clock_desc">Show a small clock on App screens, instead of the page switch widgets.</string>    
+    
+    
     <string-array name="settings_font_size_name"> 
    	<item>Small</item>
    	<item>Medium</item>
@@ -318,6 +322,9 @@
     <string name="settings_screenshots">Dump watch screenshots</string>
     <string name="settings_screenshots_desc">Save screenshots of the watch display to your SD Card.  WARNING - this will slow down everything, and could fill up your SD Card - only really of use for obtaining screenshots for themes.</string>
     
+    <string name="settings_test_widgets">Show test widgets</string>
+    <string name="settings_test_widgets_desc">Show layout test widgets. (Requires restart)</string>
+    
     <string name="settings_backup">Backup Settings</string>
     <string name="settings_backup_backup">Backup</string>
     <string name="settings_backup_backup_desc">Backup settings to external storage.</string>
@@ -380,5 +387,7 @@
 	
 	<string name="status_message_queue">Message Queue Length:</string>
 	<string name="status_notification_queue">Notification Queue Length:</string>
+	
+	<string name="widget_picker_title">Select a widget</string>
 	
 </resources>

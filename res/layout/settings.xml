@@ -353,20 +353,13 @@
 			/>
 
 	    <CheckBoxPreference
-			android:title="@string/settings_Display_widget_icon_on_top"
-			android:key="DisplayWidgetIconOnTop"
-			android:summary="@string/settings_Display_widget_icon_on_top_desc"
-			android:defaultValue="true"
-			/>
-
-	    <CheckBoxPreference
 			android:title="@string/settings_Align_widget_row_to_bottom"
 			android:key="AlignWidgetRowToBottom"
 			android:summary="@string/settings_Align_widget_row_to_bottom_desc"
 			android:defaultValue="false"
 			/>
 
-	    		<CheckBoxPreference
+	    <CheckBoxPreference
 			android:title="@string/settings_clock_every_page"
 			android:key="ClockOnEveryPage"
 			android:summary="@string/settings_clock_every_page_desc"
@@ -381,6 +374,13 @@
 			android:defaultValue="true"
 			android:dependency="ClockOnEveryPage"
 			/>
+		
+		<CheckBoxPreference
+		    android:title="@string/settings_apps_show_clock"
+		    android:key="ClockOnAppBuffers"
+		    android:summary="@string/settings_apps_show_clock_desc"
+		    android:defaultValue="false"
+		    />
 
 	</PreferenceScreen>	
 	
@@ -408,7 +408,14 @@
 	        android:defaultValue="false"
 			/>
 		
-	    		<PreferenceScreen
+	    <CheckBoxPreference
+			android:title="@string/settings_Display_widget_icon_on_top"
+			android:key="DisplayWidgetIconOnTop"
+			android:summary="@string/settings_Display_widget_icon_on_top_desc"
+			android:defaultValue="true"
+			/>
+	    
+	    <PreferenceScreen
 		    android:title="@string/settings_weather_widgets"
 		    >
 	
@@ -646,6 +653,13 @@
 			android:summary="@string/settings_screenshots_desc"
 			android:defaultValue="false"
 		    />			
+		    
+		<CheckBoxPreference
+		    android:title="@string/settings_test_widgets"
+		    android:key="TestWidgets"
+		    android:summary="@string/settings_test_widgets_desc"
+		    android:defaultValue="false"
+		    />
 	</PreferenceScreen>	
 	
 	<PreferenceScreen

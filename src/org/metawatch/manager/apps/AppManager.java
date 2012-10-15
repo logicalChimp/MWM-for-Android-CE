@@ -22,6 +22,8 @@ public class AppManager {
 			addApp(new MediaPlayerApp());
 		if (getApp(ActionsApp.APP_ID)==null)
 			addApp(new ActionsApp());
+		if (getApp(CalendarApp.APP_ID)==null)
+			addApp(new CalendarApp());
 	}
 	
 	public static void addApp(ApplicationBase app) {

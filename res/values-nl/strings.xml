@@ -75,7 +75,11 @@
 
     <string name="settings_Display_widget_row_separator">Scheidingslijn weergeven</string>
     <string name="settings_Display_widget_row_separator_desc">Geeft een scheidingslijn weerd tussen widget rijen</string>
-
+    <string name="settings_Align_widget_row_to_bottom">Widget rijen laten zakken</string>
+    <string name="settings_Align_widget_row_to_bottom_desc">Widgets op onderste rij uitlijnen</string>
+    <string name="settings_Display_widget_icon_on_top">Widget icoon bovenaan weergeven</string>
+    <string name="settings_Display_widget_icon_on_top_desc">Beeldt het widget icoon boven in de rij af, met de waarde eronder</string>
+    
     <string name="settings_Overlay_weather_text">Overschrijf tekst in weer widget</string>
     <string name="settings_Overlay_weather_text_desc">Schrijft de tekst (conditie en lokatie) over het weer icoon</string>
 
@@ -107,6 +111,10 @@
     <string name="settings_idle_app_buffer">Gebruik App buffer voor klokloze widget pagina\'s</string>
     <string name="settings_idle_app_buffer_desc">Maakt de klok- en het statusicoon zichtbaar wanneer de verbinding met het horloge is verbroken, maar verliest de knoppenacties op relevante pagina\'s.</string>    
         
+    <string name="settings_apps_show_clock">Klok weergeven op app-schermen</string>
+    <string name="settings_apps_show_clock_desc">Geeft een kleine klok weer op app-schermen, in plaats van de pagina schakel widget</string>    
+    
+    
     <string-array name="settings_font_size_name"> 
    	<item>Klein</item>
    	<item>Middel</item>
@@ -235,6 +243,8 @@
     
     <string name="settings_hide_empty_widgets">Lege widgets verbergen</string>
     <string name="settings_hide_empty_widgets_desc">Widgets verbergen die een "0" weergeven, of geen data</string>
+    <string name="settings_hidden_widgets_reserve_space">Verborgen widget ruimte reserveren</string>
+    <string name="settings_hidden_widgets_reserve_space_desc">Verborgen ruimte op het widget scherm reserveren, zodat gegevens kunnen worden weergegeven als ze beschikbaar zijn</string>
     
     <string name="settings_weather_provider">Weer aanbieder</string>
     <string name="settings_weather_provider_desc">Kies of schakel weer data bron uit</string>
@@ -292,7 +302,7 @@
     <string name="settings_watch_voltage_freq">Verzamel frequentie</string>
     
     <string name="settings_auto_connect">Automatisch verbinden bij opstarten</string>
-    <string name="settings_auto_connect_desc">Automatisch proberen te verbinden bij opstarten App</string>
+    <string name="settings_auto_connect_desc">Herstel vorige staat van verbinding bij opstarten</string>
     
     <string name="settings_notify_on_connect">Melding weergeven op horloge bij verbinden</string>
     <string name="settings_notify_on_connect_desc">Zend een melding naar het horloge na het leggen van een verbinding</string>
@@ -311,6 +321,9 @@
     
     <string name="settings_screenshots">Dump horloge screenshots</string>
     <string name="settings_screenshots_desc">Sla screenshots van het horloge beeldscherm op op de SD-kaart van de telefoon. WAARSCHUWING: dit zal alles vertragen, en kan de SD-kaart volledig vullen - is alleen handig voor het maken van screenshots voor thema\'s.</string>
+    
+    <string name="settings_test_widgets">Test widgets weergeven</string>
+    <string name="settings_test_widgets_desc">Layout test widgets weergeven. (herstart benodigd)</string>
     
     <string name="settings_backup">Maak een backup van de instellingen</string>
     <string name="settings_backup_backup">Backup</string>
@@ -333,8 +346,8 @@
   	<string name="ui_tab_widgets">Widgets</string>
   	<string name="ui_tab_tests">Tests</string>
   	
-  	<string name="ui_tab_downloaded_themes">Downloaded</string>
-  	<string name="ui_tab_theme_gallery">Gallery</string>
+  	<string name="ui_tab_downloaded_themes">Gedownload</string>
+  	<string name="ui_tab_theme_gallery">Galerij</string>
   	  
     
     <string name="device_selection_search_button">Zoeken naar apparaten</string>
@@ -374,5 +387,7 @@
 	
 	<string name="status_message_queue">Berichten wachtrijlengte</string>
 	<string name="status_notification_queue">Meldingen wachtrijlengte</string>
+	
+	<string name="widget_picker_title">Selecteer een widget</string>
 	
 </resources>

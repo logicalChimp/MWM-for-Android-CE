@@ -75,7 +75,11 @@
 
     <string name="settings_Display_widget_row_separator">Lignes de séparation</string>
     <string name="settings_Display_widget_row_separator_desc">Affiche une ligne de séparation entre les lignes de widgets</string>
-
+    <string name="settings_Align_widget_row_to_bottom">Widget rows sink</string>
+    <string name="settings_Align_widget_row_to_bottom_desc">Align widget rows to the bottom of the screen</string>
+    <string name="settings_Display_widget_icon_on_top">Display widget icon on top</string>
+    <string name="settings_Display_widget_icon_on_top_desc">Draws the widget icon on the top of the row, with the value below</string>
+    
     <string name="settings_Overlay_weather_text">Texte en surimpression</string>
     <string name="settings_Overlay_weather_text_desc">Dessine le texte (temps et emplacement) au dessus de l\'icône météo</string>
 
@@ -107,6 +111,10 @@
     <string name="settings_idle_app_buffer">Horloge en mémoire</string>
     <string name="settings_idle_app_buffer_desc">Permet de garder l\'affichage de l\'horloge et des widgets à l\'écran quand la connexion avec le smartphone est perdue.</string>    
         
+    <string name="settings_apps_show_clock">Clock on App screens</string>
+    <string name="settings_apps_show_clock_desc">Show a small clock on App screens, instead of the page switch widgets.</string>    
+    
+    
     <string-array name="settings_font_size_name"> 
    	<item>Petit</item>
    	<item>Moyen</item>
@@ -235,6 +243,8 @@
     
     <string name="settings_hide_empty_widgets">Cacher les widgets vides</string>
     <string name="settings_hide_empty_widgets_desc">Cache tous les widgets qui affichent 0 ou n\'ont pas reçus de données.</string>
+    <string name="settings_hidden_widgets_reserve_space">Hidden widgets reserve space</string>
+    <string name="settings_hidden_widgets_reserve_space_desc">Hidden widgets \'reserve\' space on screen to draw themselves into once data is available</string>
     
     <string name="settings_weather_provider">Service météo</string>
     <string name="settings_weather_provider_desc">Choisir ou désactiver la source d\'information météo</string>
@@ -292,7 +302,7 @@
     <string name="settings_watch_voltage_freq">Fréquence d\'enregistrement</string>
     
     <string name="settings_auto_connect">Connexion automatique au démarrage</string>
-    <string name="settings_auto_connect_desc">Essaie de se connecter automatiquement à la montre au démarrage de l\'application</string>
+    <string name="settings_auto_connect_desc">Restore previous connection state on startup.</string>
     
     <string name="settings_notify_on_connect">Notification de connexion</string>
     <string name="settings_notify_on_connect_desc">Envoi une notification à la montre après s\'y être connecté.</string>
@@ -311,6 +321,9 @@
     
     <string name="settings_screenshots">Captures d\'écran</string>
     <string name="settings_screenshots_desc">Enregistre les captures d\'écran de la montre sur votre carte SD. ATTENTION, cette option peut remplir votre carte SD et ralentis l\'affichage</string>
+    
+    <string name="settings_test_widgets">Show test widgets</string>
+    <string name="settings_test_widgets_desc">Show layout test widgets. (Requires restart)</string>
     
     <string name="settings_backup">Sauvegarde/restauration</string>
     <string name="settings_backup_backup">Sauvegarde</string>
@@ -374,5 +387,7 @@
 	
 	<string name="status_message_queue">Taille de la queue des messages:</string>
 	<string name="status_notification_queue">Taille de la queue des notifications:</string>
+	
+	<string name="widget_picker_title">Select a widget</string>
 	
 </resources>

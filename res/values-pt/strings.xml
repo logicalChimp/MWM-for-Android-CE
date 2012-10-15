@@ -75,7 +75,11 @@
 
     <string name="settings_Display_widget_row_separator">Mostrar linha separadora</string>
     <string name="settings_Display_widget_row_separator_desc">Desenha uma linha separadora entre filas de widgets</string>
-
+    <string name="settings_Align_widget_row_to_bottom">Filas de widgets em baixo</string>
+    <string name="settings_Align_widget_row_to_bottom_desc">Alinhar as filas de widgets na parte inferior do ecrã</string>
+    <string name="settings_Display_widget_icon_on_top">Mostrar ícone de widget no topo</string>
+    <string name="settings_Display_widget_icon_on_top_desc">Desenhar o ícone de widget no topo da fila, com o valor por baixo</string>
+    
     <string name="settings_Overlay_weather_text">Texto sobreposto na widget de clima</string>
     <string name="settings_Overlay_weather_text_desc">Desenha o texto (condição e local) sobre o ícone de clima</string>
 
@@ -107,6 +111,10 @@
     <string name="settings_idle_app_buffer">Usar o Buffer de Aplicações nas páginas de widgets sem relógio</string>
     <string name="settings_idle_app_buffer_desc">Torna o relógio e ícone de estado visíveis quando a conecção ao relógio cai, mas perde as ações dos botões nas páginas afetadas</string>    
         
+    <string name="settings_apps_show_clock">Relógio nos ecrãs de Apps</string>
+    <string name="settings_apps_show_clock_desc">Mostrar um relógio pequeno nos ecrãs de Apps, em vez das widgets de mudança de página</string>    
+    
+    
     <string-array name="settings_font_size_name"> 
    	<item>Pequena</item>
    	<item>Média</item>
@@ -235,6 +243,8 @@
     
     <string name="settings_hide_empty_widgets">Esconder widgets vazias</string>
     <string name="settings_hide_empty_widgets_desc">Esconder widgets que mostram "0" ou não têm dados</string>
+    <string name="settings_hidden_widgets_reserve_space">Widgets escondidas reservam espaço</string>
+    <string name="settings_hidden_widgets_reserve_space_desc">Widgets escondidas \'reservam\' espaço no ecrã para serem desenhadas quando a informação está disponível</string>
     
     <string name="settings_weather_provider">Serviço de Clima</string>
     <string name="settings_weather_provider_desc">Escolher ou desativar fonte de informação de clima</string>
@@ -292,7 +302,7 @@
     <string name="settings_watch_voltage_freq">Frequência do Registo</string>
     
     <string name="settings_auto_connect">Conecção Automática quando a Aplicação Inicia</string>
-    <string name="settings_auto_connect_desc">Tentar estabelecer automaticamente a ligação ao relógio quando a aplicação inicia</string>
+    <string name="settings_auto_connect_desc">Restaurar estado anterior de conecção ao iniciar</string>
     
     <string name="settings_notify_on_connect">Notificar Relógio Quando Conecta</string>
     <string name="settings_notify_on_connect_desc">Enviar uma notificação para o relógio depois de efectuar a ligação</string>
@@ -311,6 +321,9 @@
     
     <string name="settings_screenshots">Gravar capturas de ecrã do relógio</string>
     <string name="settings_screenshots_desc">Gravar capturas de ecrã do relógio no cartão SD. AVISO - isto irá atrasar tudo e poderá encher o cartão SD - apenas útil para obter capturas de ecrã dos temas</string>
+    
+    <string name="settings_test_widgets">Mostrar widgets de teste</string>
+    <string name="settings_test_widgets_desc">Mostrar widgets de teste da configuração de apresentação (necessita reiniciar)</string>
     
     <string name="settings_backup">Definições de Cópia de Segurança</string>
     <string name="settings_backup_backup">Fazer Cópia de Segurança</string>
@@ -333,8 +346,8 @@
   	<string name="ui_tab_widgets">Widgets</string>
   	<string name="ui_tab_tests">Testes</string>
   	
-  	<string name="ui_tab_downloaded_themes">Downloaded</string>
-  	<string name="ui_tab_theme_gallery">Gallery</string>
+  	<string name="ui_tab_downloaded_themes">Descarregados</string>
+  	<string name="ui_tab_theme_gallery">Galeria</string>
   	  
     
     <string name="device_selection_search_button">Procurar por dispositivos</string>
@@ -374,5 +387,7 @@
 	
 	<string name="status_message_queue">Comprimento da Fila de Mensagens:</string>
 	<string name="status_notification_queue">Comprimento da Fila de Notificações:</string>
+	
+	<string name="widget_picker_title">Escolher uma widget</string>
 	
 </resources>

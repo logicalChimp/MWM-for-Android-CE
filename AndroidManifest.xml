@@ -112,6 +112,7 @@
             	<action android:name="com.sonyericsson.alarm.ALARM_ALERT" />
             	<action android:name="com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED" />
             	<action android:name="org.metawatch.manager.UPDATE_CALENDAR"/>
+            	<action android:name="org.metawatch.manager.UPDATE_APPSCREEN_CLOCK"/>
             	<action android:name="com.usk.app.notifymyandroid.NEW_NOTIFICATION" />
             	<action android:name="fm.last.android.metachanged" />
 

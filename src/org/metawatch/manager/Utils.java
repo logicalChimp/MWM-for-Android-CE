@@ -95,7 +95,6 @@ import android.text.Spannable;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.widget.TextView;
@@ -103,10 +102,32 @@ import android.widget.Toast;
 
 public class Utils {
 
-	static public String Meeting_Title = "---";
-	static public String Meeting_Location = "---";
-	static public long Meeting_EndTimestamp;
-	static public long Meeting_StartTimestamp;
+	public static class CalendarEntry {
+		public String title = "---";
+		public String location = "---";
+		public long endTimestamp = 0;
+		public long startTimestamp = 0;
+		public boolean isAllDay = false;
+		
+		public boolean isOngoing() {
+			final long now = System.currentTimeMillis();
+			return startTimestamp < now && now < (endTimestamp-Preferences.readCalendarMinDurationToMeetingEnd*60*1000);
+		}
+		
+		public String displayTime() {
+			if( startTimestamp == 0 && endTimestamp == 0 )
+			{
+				return "None";
+			}
+			else if( isOngoing() && Preferences.readCalendarDuringMeeting ) {
+				final long now = System.currentTimeMillis();
+				return String.valueOf(endTimestamp-(Preferences.readCalendarMinDurationToMeetingEnd+1)*60*1000-now);
+			}
+			else {
+				return new SimpleDateFormat("HH:mm").format(startTimestamp);
+			}
+		}
+	}
 	
 	public static class CursorHandler {
 		private List<Cursor> cursors = new ArrayList<Cursor>();
@@ -295,133 +316,68 @@ public class Utils {
 		return missed;
 	}
 	
-	public static String readCalendar(Context context, int Return) {
-		long now = new Date().getTime();
-		final long CurrentTime = System.currentTimeMillis();
-
+	// This block of code gets calendar names - will be useful!
+	//	ContentResolver cr = context.getContentResolver();
+	//	Cursor cursor = ch.add( cr.query(Uri.parse("content://com.android.calendar/calendars"), new String[]{ "_id","name"}, null, null, null) );
+	//	cursor.moveToFirst();
+	//	String[] CalNames = new String[cursor.getCount()];
+	//	int[] CalIds = new int[cursor.getCount()];
+	//	for (int i = 0; i < CalNames.length; i++) {
+	//		CalIds[i] = cursor.getInt(0);
+	//		CalNames[i] = cursor.getString(1);
+	//		cursor.moveToNext();
+	//  }
+	
+	public static List<CalendarEntry> readCalendar(Context context, long startTime, long endTime, boolean singleEvent) {
+		
+		List<CalendarEntry> entries = new ArrayList<CalendarEntry>();
+		
 		CursorHandler ch = new CursorHandler();
 		
 		try {
-
-			String titletemp="";
-			String locationtemp="";
-			String MeetingTime;
-			long currentremaintime;
-			long begintemp=0;
-			long elapsedtimetemp=0;
-			long mintime=(long)(1000*60*1.2);
-			if (!Preferences.readCalendarDuringMeeting) {
-				mintime=-1000*60; // to have some safety margin in case the meeting is just starting
-			}
-
-			currentremaintime=0;
-			//location="nowhere";
-
 			ContentResolver cr = context.getContentResolver();
-			Cursor cursor = ch.add( cr.query(Uri.parse("content://com.android.calendar/calendars"), new String[]{ "_id","name"}, null, null, null) );
-			cursor.moveToFirst();
-			String[] CalNames = new String[cursor.getCount()];
-			int[] CalIds = new int[cursor.getCount()];
-			for (int i = 0; i < CalNames.length; i++) {
-				CalIds[i] = cursor.getInt(0);
-				CalNames[i] = cursor.getString(1);
-				cursor.moveToNext();
-			}
 			Uri.Builder builder = Uri.parse("content://com.android.calendar/instances/when").buildUpon();
 
-			ContentUris.appendId(builder, now );
-			ContentUris.appendId(builder, now + DateUtils.DAY_IN_MILLIS);	        
+			ContentUris.appendId(builder, startTime );
+			ContentUris.appendId(builder, endTime );	        
 			Cursor eventCursor = ch.add(cr.query(builder.build(),
 					new String[] { "event_id", "begin", "end", "allDay"}, null, null, "startDay ASC, startMinute ASC"));
 			// For a full list of available columns see http://tinyurl.com/yfbg76w
-			MeetingTime="None";
+
 			while (eventCursor.moveToNext()) {
-				if ((eventCursor.getLong(1) > (CurrentTime+mintime)) &&(eventCursor.getString(3).equals("0"))){
-					String uid2 = eventCursor.getString(0);	
-					Uri CALENDAR_URI = Uri.parse("content://com.android.calendar/events/" + uid2);
-					//if (Preferences.logging) Log.d(MetaWatch.TAG,"CalendarService.GetData(): Calendar URI: "+ CALENDAR_URI);
-					Cursor c = ch.add(cr.query(CALENDAR_URI,new String[] { "title", "eventLocation", "description",}, null, null, null)); 
-					//if (Preferences.logging) Log.d(MetaWatch.TAG,"CalendarService.GetData(): Calendar cursor: "+ c.getCount());
-					if (c.moveToFirst())
-					{	
-						//if (Preferences.logging) Log.d(Constants.LOG_TAG,"CalendarService.GetData(): Calendar title: "+ c.getString(c.getColumnIndex("title")));
-						//if (Preferences.logging) Log.d(Constants.LOG_TAG,"CalendarService.GetData(): Calendar location: "+ c.getString(c.getColumnIndex("eventLocation")));
-						titletemp = c.getString(c.getColumnIndex("title"));
-						locationtemp = c.getString(c.getColumnIndex("eventLocation"));    
-					}
-
-					begintemp = eventCursor.getLong(1);
-					Meeting_StartTimestamp = begintemp;
-					MeetingTime = new SimpleDateFormat("HH:mm").format(begintemp);
-					Meeting_EndTimestamp = eventCursor.getLong(2);
-
-					if (Preferences.readCalendarDuringMeeting) {
-					  elapsedtimetemp = (begintemp-CurrentTime);
-					} else {
-					  elapsedtimetemp = (Meeting_EndTimestamp-(Preferences.readCalendarMinDurationToMeetingEnd+1)*60*1000-CurrentTime);
-					}
-
-					//if (Preferences.logging) Log.d(MetaWatch.TAG,"CalendarService.GetData(): Next Meeting time : "+ MeetingTime);
-					//if (Preferences.logging) Log.d(MetaWatch.TAG,"CalendarService.GetData(): Next Meeting Title : " + titletemp);
-					//if (Preferences.logging) Log.d(MetaWatch.TAG,"CalendarService.GetData(): Next Meeting Location : " + locationtemp);
-
-
-					if (currentremaintime != 0) {
-						if (currentremaintime > elapsedtimetemp){
-							currentremaintime = elapsedtimetemp;
-							Meeting_Title = titletemp;
-							Meeting_Location = locationtemp;
-						}
-					}
-					else
-					{
-						currentremaintime = elapsedtimetemp;
-						Meeting_Title = titletemp;
-						Meeting_Location = locationtemp;
-
-					}
-
-					break;
+				boolean isAllDay = !eventCursor.getString(3).equals("0");
+				if (singleEvent && (isAllDay || eventCursor.getLong(1) < startTime))
+					continue;
+						
+				CalendarEntry entry = new CalendarEntry();
+				entry.isAllDay = isAllDay;
+				String uid2 = eventCursor.getString(0);	
+				Uri CALENDAR_URI = Uri.parse("content://com.android.calendar/events/" + uid2);
+				Cursor c = ch.add(cr.query(CALENDAR_URI,new String[] { "title", "eventLocation", "description",}, null, null, null)); 
+				if (c.moveToFirst())
+				{	
+					entry.title = c.getString(c.getColumnIndex("title"));
+					entry.location = c.getString(c.getColumnIndex("eventLocation"));    
 				}
+				
+				entry.startTimestamp = eventCursor.getLong(1);
+				entry.endTimestamp = eventCursor.getLong(2);
+				
+				entries.add(entry);
+
+				if (singleEvent)
+					return entries;
 			}   
-
-			/*** Schedule ending notification ***/
-			if (!MeetingTime.equals("None")){
-
-				Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.MILLISECOND, (int)currentremaintime);
-				Intent intent = new Intent("org.metawatch.manager.UPDATE_CALENDAR");
-
-				intent.putExtra("Calendar", titletemp);
-				// In reality, you would want to have a static variable for the request code instead of 192837
-				PendingIntent sender = PendingIntent.getBroadcast(context, 192837, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-				// Get the AlarmManager service
-				AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-				am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), sender);
-				//if (Preferences.logging) Log.d(MetaWatch.TAG,"CalendarService: Next Meeting alarm time : "+ cal);
-			}
-			else {
-				Meeting_Title = "---";
-				Meeting_Location = "---";
-			}
-
-			
-
-			if (Return==1){
-				return String.valueOf(currentremaintime);
-			}
-			else{
-				return MeetingTime;
-			}
 		}
 		catch(Exception x) {
 			if (Preferences.logging) Log.d(MetaWatch.TAG, "Utils.readCalendar(): caught exception: " + x.toString());
-			return "None";
+			return null;
 		}
 		finally {
 			ch.closeAll();
 		}
+		
+		return entries;
 
 	}
 	
@@ -1031,4 +987,22 @@ public class Utils {
     	return string.trim().equals("");
     }
 	
+    public static void setAppClockRefreshAlarm(Context context) {
+
+    	Date date = new Date();
+    	final int seconds = date.getSeconds();
+    	final long ms = 1000*(60-seconds);
+    	
+		Intent intent = new Intent("org.metawatch.manager.UPDATE_APPSCREEN_CLOCK");
+		PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		// Get the AlarmManager service
+		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ms, sender);
+		
+		if (Preferences.logging) Log.d(MetaWatch.TAG, "Refreshing App screen in "+ms+"ms");
+		
+	
+    }
+    
 }
